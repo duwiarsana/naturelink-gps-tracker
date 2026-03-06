@@ -1,0 +1,44 @@
+{
+  "device": {
+    "imei": "0866344055567122",
+    "frame_id": 48
+  },
+  "waktu": "2026-03-06T06:10:49",
+  "event": {
+    "kode": 51,
+    "nama": "Tracking Data"
+  },
+  "lokasi": {
+    "latitude": 22.636635,
+    "longitude": 114.030401,
+    "google_maps": "https://www.google.com/maps?q=22.636635,114.030401",
+    "gps_valid": "✓ Valid",
+    "kecepatan_kmh": 0,
+    "arah_derajat": 196,
+    "ketinggian_meter": 78,
+    "jumlah_satelit": 17,
+    "kualitas_sinyal": 25
+  },
+  "status_device": {
+    "baterai_mv": 4118,
+    "baterai_volt": 4.12,
+    "power_eksternal_mv": 12282,
+    "power_eksternal_volt": 12.28,
+    "jaringan": "4G",
+    "jarak_tempuh_meter": 99,
+    "jarak_tempuh_km": 0.1,
+    "waktu_mesin_hidup_detik": 1672,
+    "waktu_mesin_hidup_menit": 27.9
+  },
+  "base_station": {
+    "mcc": 460,
+    "mnc": 0,
+    "lac": 10150,
+    "cell_id": 54188690
+  },
+  "akselerasi": {
+    "x_mg": 13,
+    "y_mg": -17,
+    "z_mg": -1002
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "raw_hex": "\n    3e 3e 01 30 08 66 34 40 55 56 71 22 51 00 01 01\n    33 00 69 2c 3d 31 5b 68 59 01 41 7b cd 06 33 00\n    11 62 01 1a 02 08 01 16 10 02 fa 2f 03 00 00 04\n    00 00 0b 09 00 0c 4e 00 0f 00 00 10 00 00 02 0d\n    63 00 00 00 0e 88 06 00 00 00 02 11 0a cc 01 00\n    00 a6 27 92 da 3a 03 18 06 0d 00 ef ff 16 fc 4c\n    0a\n    ",
+  "parsed": true,
+  "error": null,
+  "header": {
+    "preamble": "3e3e",
+    "version": 1,
+    "frame_id": 48,
+    "imei": "0866344055567122",
+    "data_length": 81,
+    "codec_id": 1,
+    "num_records": 1
+  },
+  "records": [
+    {
+      "event_code": 51,
+      "timestamp": "2026-03-06T06:10:49",
+      "timestamp_unix": 1772748649,
+      "gps": {
+        "latitude": 22.636635,
+        "longitude": 114.129729,
+        "valid": true,
+        "satellites": 17,
+        "heading": 196,
+        "speed_kmh": 0,
+        "signal_quality": 25
+      },
+      "io_elements": {
+        "network_type": "4G",
+        "battery_voltage": {
+          "value": 4118,
+          "unit": "mV"
+        },
+        "external_voltage": {
+          "value": 12282,
+          "unit": "mV"
+        },
+        "ad1": {
+          "value": 0,
+          "unit": "mV"
+        },
+        "ad2": {
+          "value": 0,
+          "unit": "mV"
+        },
+        "hdop": {
+          "value": 9,
+          "unit": ""
+        },
+        "altitude": {
+          "value": 78,
+          "unit": "m"
+        },
+        "input_status": {
+          "value": 0,
+          "unit": ""
+        },
+        "output_status": {
+          "value": 0,
+          "unit": ""
+        },
+        "mileage": {
+          "value": 99,
+          "unit": "m"
+        },
+        "running_time": {
+          "value": 1672,
+          "unit": "s"
+        },
+        "base_station": {
+          "mcc": 460,
+          "mnc": 0,
+          "lac": 10150,
+          "cell_id": 54188690
+        },
+        "acceleration": {
+          "x_mg": 13,
+          "y_mg": -17,
+          "z_mg": -1002
+        }
+      }
+    }
+  ],
+  "footer": {
+    "checksum": 76,
+    "end_byte": 10
+  }
+}
