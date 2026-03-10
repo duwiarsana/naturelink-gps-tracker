@@ -28,6 +28,12 @@ naturelink-gps-tracker/
 │   ├── mqtt_json_republisher.py                  # Republish raw → JSON ke 1 topic umum
 │   └── mqtt_to_database.py                       # MQTT to Database (production)
 │
+├── public/                                        # 🌐 Web Dashboard
+│   ├── index.html                                 # Dashboard HTML
+│   ├── css/style.css                              # Dashboard styling
+│   ├── js/app.js                                  # Dashboard logic & MQTT WebSocket
+│   └── README.md                                  # Dashboard documentation
+│
 └── data/                                          # 💾 Data & Logs
     ├── sample_parsed.json                         # Contoh hasil parsing
     └── gps_tracking.jsonl                         # Log GPS real-time (auto-generated)
@@ -62,6 +68,29 @@ python3 naturelink_parser.py
 cd scripts
 python3 mqtt_monitor.py
 ```
+
+---
+
+## 🌐 Web Dashboard
+
+Dashboard web real-time untuk monitoring GPS tracker dengan visualisasi peta OpenStreetMap.
+
+### Features
+- 🗺️ Real-time map tracking dengan OpenStreetMap (Leaflet.js)
+- 📊 Live data display (GPS, device status, I/O, acceleration, iButton, base station)
+- 🔄 Auto-reconnect MQTT via WebSocket
+- 📱 Responsive design
+
+### Quick Start
+
+```bash
+cd public
+python3 -m http.server 8000
+```
+
+Akses: `http://localhost:8000`
+
+**Dokumentasi lengkap:** [`public/README.md`](public/README.md)
 
 ---
 
