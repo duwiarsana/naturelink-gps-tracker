@@ -33,8 +33,10 @@ class NaturelinkParser:
         0x10: {'name': 'output_status', 'unit': '', 'bytes': 2},
         0x11: {'name': 'base_station', 'unit': '', 'bytes': 10},
         0x12: {'name': 'fuel_percentage', 'unit': '%', 'bytes': 2},
+        0x17: {'name': 'ibutton_id', 'unit': '', 'bytes': 4},
         0x18: {'name': 'acceleration_xyz', 'unit': 'mg', 'bytes': 6},
         0x1A: {'name': 'network_type', 'unit': '', 'bytes': 1},
+        0x20: {'name': 'ibutton_authorized', 'unit': '', 'bytes': 1},
     }
     
     def __init__(self):
@@ -264,6 +266,12 @@ class NaturelinkParser:
             if io_id == 0x1A:
                 network_types = {1: '2G', 2: '4G', 3: '5G'}
                 io_data[name] = network_types.get(value, f'Unknown({value})')
+            # Special handling for iButton ID (format as hex)
+            elif io_id == 0x17:
+                io_data[name] = f"{value:08X}"
+            # Special handling for iButton authorized status
+            elif io_id == 0x20:
+                io_data[name] = bool(value)
             else:
                 io_data[name] = {
                     'value': value,

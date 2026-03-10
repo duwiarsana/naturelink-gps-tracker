@@ -186,6 +186,12 @@ class JSONRepublisher:
                 "z_mg": acc.get('z_mg')
             }
         
+        if 'ibutton_id' in io:
+            json_payload["ibutton"] = {
+                "id": io.get('ibutton_id'),
+                "authorized": io.get('ibutton_authorized', False)
+            }
+        
         return json_payload
     
     def get_event_name(self, event_code):
