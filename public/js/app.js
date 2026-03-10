@@ -4,7 +4,7 @@ let client;
 let currentPosition = [-6.390071, 106.994909];
 
 const MQTT_CONFIG = {
-    host: '72.62.126.85',
+    host: window.location.hostname || '72.62.126.85',
     port: 9001,
     clientId: 'web_dashboard_' + Math.random().toString(16).substr(2, 8),
     username: 'kutaienergy',
@@ -34,6 +34,9 @@ function initMap() {
 function connectMQTT() {
     updateStatus('Connecting...', false);
     
+    console.log('Attempting MQTT connection to:', MQTT_CONFIG.host + ':' + MQTT_CONFIG.port);
+    console.log('Client ID:', MQTT_CONFIG.clientId);
+    
     client = new Paho.MQTT.Client(
         MQTT_CONFIG.host,
         MQTT_CONFIG.port,
@@ -49,10 +52,16 @@ function connectMQTT() {
         onSuccess: onConnect,
         onFailure: onFailure,
         useSSL: false,
-        reconnect: true
+        reconnect: true,
+        timeout: 10
     };
     
-    client.connect(connectOptions);
+    try {
+        client.connect(connectOptions);
+    } catch (error) {
+        console.error('MQTT connection error:', error);
+        updateStatus('Connection Error: ' + error.message, false);
+    }
 }
 
 function onConnect() {
@@ -64,7 +73,9 @@ function onConnect() {
 
 function onFailure(error) {
     console.error('Connection failed:', error);
-    updateStatus('Connection Failed', false);
+    const errorMsg = error.errorMessage || 'Unknown error';
+    updateStatus('Connection Failed: ' + errorMsg, false);
+    console.log('Retrying in 5 seconds...');
     setTimeout(connectMQTT, 5000);
 }
 
