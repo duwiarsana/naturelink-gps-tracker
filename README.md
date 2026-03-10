@@ -17,6 +17,7 @@ naturelink-gps-tracker/
 │   ├── MQTT-Subscribe-Guide.md                   # Panduan subscribe MQTT
 │   ├── Protokol-Naturelink-Ringkasan.md          # Ringkasan protokol (ID)
 │   ├── Developer-Guide-Database-Integration.md   # Guide untuk developer
+│   ├── JSON-Republisher-Guide.md                 # Guide untuk JSON republisher
 │   └── protocol/
 │       ├── protocol.md                            # Protokol lengkap (copy dari docx)
 │       └── Communication Protocol_V1.0_2026.docx  # Protokol asli dari vendor
@@ -24,6 +25,7 @@ naturelink-gps-tracker/
 ├── scripts/                                       # 🔧 Python Scripts
 │   ├── naturelink_parser.py                      # Parser data binary GPS
 │   ├── mqtt_monitor.py                           # Real-time MQTT monitor
+│   ├── mqtt_json_republisher.py                  # Republish raw → JSON ke 1 topic umum
 │   └── mqtt_to_database.py                       # MQTT to Database (production)
 │
 └── data/                                          # 💾 Data & Logs
@@ -63,6 +65,69 @@ python3 mqtt_monitor.py
 
 ---
 
+## JSON Republisher (Raw → JSON)
+
+Kalau team developer ingin konsumsi data yang sudah rapi (JSON) tanpa perlu ngerti protokol hex/binary, gunakan script:
+
+- Subscribe raw: `/Naturelink/Send`
+- Publish JSON: `/Naturelink/Send/json`
+
+### Konfigurasi `.env`
+
+Pastikan `.env` memiliki variable:
+
+```bash
+MQTT_TOPIC=/Naturelink/Send
+MQTT_TOPIC_JSON=/Naturelink/Send/json
+```
+
+### Menjalankan republisher
+
+```bash
+cd scripts
+python3 mqtt_json_republisher.py
+```
+
+### Subscribe hasil JSON
+
+```bash
+mosquitto_sub \
+  -h "$MQTT_BROKER" \
+  -p "$MQTT_PORT" \
+  -u "$MQTT_USERNAME" \
+  -P "$MQTT_PASSWORD" \
+  -t "$MQTT_TOPIC_JSON" \
+  -v
+```
+
+### Test koneksi publish/subscribe (tanpa ganggu topic device)
+
+Terminal 1 (subscribe):
+
+```bash
+mosquitto_sub \
+  -h "$MQTT_BROKER" \
+  -p "$MQTT_PORT" \
+  -u "$MQTT_USERNAME" \
+  -P "$MQTT_PASSWORD" \
+  -t '/test/koneksi' \
+  -v
+```
+
+Terminal 2 (publish):
+
+```bash
+mosquitto_pub \
+  -h "$MQTT_BROKER" \
+  -p "$MQTT_PORT" \
+  -u "$MQTT_USERNAME" \
+  -P "$MQTT_PASSWORD" \
+  -t '/test/koneksi' \
+  -m '{"ping":"ok"}'
+```
+
+---
+
 ## Informasi MQTT Broker
 
 - **Host**: `$MQTT_BROKER`
@@ -79,6 +144,7 @@ python3 mqtt_monitor.py
 - [Panduan Subscribe & Baca Data Hex](docs/MQTT-Subscribe-Guide.md)
 - [Ringkasan Protokol Naturelink](docs/Protokol-Naturelink-Ringkasan.md) ⭐ **Baca ini dulu!**
 - [Developer Guide - Database Integration](docs/Developer-Guide-Database-Integration.md) 🔥 **Untuk Team Developer**
+- [JSON Republisher Guide](docs/JSON-Republisher-Guide.md) ✅ **Untuk konsumsi data JSON (1 topic umum)**
 - [Dokumentasi Protokol Lengkap](docs/protocol/protocol.md)
 
 ### Contoh Data yang Diparsing
