@@ -13,7 +13,9 @@ const MQTT_CONFIG = {
 };
 
 function initMap() {
-    map = L.map('map').setView(currentPosition, 15);
+    map = L.map('map', {
+        zoomControl: false
+    }).setView(currentPosition, 15);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
