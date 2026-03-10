@@ -277,11 +277,11 @@ class NaturelinkParser:
                 io_data[name] = {
                     'value': value,
                     'hex': f"0x{value:04X}",
-                    'input1': bool(value & 0x0001),
-                    'input2': bool(value & 0x0002),
-                    'input3': bool(value & 0x0004),
-                    'input4': bool(value & 0x0008),
-                    'pto': bool(value & 0x0010)
+                    'din1': bool(value & 0x0001),
+                    'din2': bool(value & 0x0002),
+                    'din3': bool(value & 0x0004),
+                    'din4': bool(value & 0x0008),
+                    'din5': bool(value & 0x0010)
                 }
             # Special handling for output_status (parse bits)
             elif io_id == 0x10:

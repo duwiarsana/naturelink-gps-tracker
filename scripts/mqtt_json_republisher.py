@@ -199,18 +199,16 @@ class JSONRepublisher:
         if 'input_status' in io:
             inp = io['input_status']
             json_payload["input_output"] = {
-                "pto": inp.get('pto', False),
-                "input1": inp.get('input1', False),
-                "input2": inp.get('input2', False),
-                "input3": inp.get('input3', False),
-                "input4": inp.get('input4', False)
+                "din1": inp.get('din1', False),
+                "din2": inp.get('din2', False),
+                "din3": inp.get('din3', False),
+                "din4": inp.get('din4', False),
+                "din5": inp.get('din5', False)
             }
             if 'output_status' in io:
                 out = io['output_status']
-                json_payload["input_output"]["output1"] = out.get('output1', False)
-                json_payload["input_output"]["output2"] = out.get('output2', False)
-                json_payload["input_output"]["output3"] = out.get('output3', False)
-                json_payload["input_output"]["output4"] = out.get('output4', False)
+                json_payload["input_output"]["dout1"] = out.get('output1', False)
+                json_payload["input_output"]["dout2"] = out.get('output2', False)
         
         return json_payload
     
