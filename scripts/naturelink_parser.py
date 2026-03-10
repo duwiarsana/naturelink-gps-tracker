@@ -106,6 +106,10 @@ class NaturelinkParser:
     def _read_uint32_le(self) -> int:
         """Read 4 bytes unsigned integer (little-endian)"""
         return struct.unpack('<I', self._read_bytes(4))[0]
+
+    def _read_int32_le(self) -> int:
+        """Read 4 bytes signed integer (little-endian)"""
+        return struct.unpack('<i', self._read_bytes(4))[0]
     
     def _read_int16_le(self) -> int:
         """Read 2 bytes signed integer (little-endian)"""
@@ -157,8 +161,8 @@ class NaturelinkParser:
         # Base info
         event_code = self._read_uint16_le()
         timestamp_raw = self._read_uint32_le()
-        latitude_raw = self._read_uint32_le()
-        longitude_raw = self._read_uint32_le()
+        latitude_raw = self._read_int32_le()
+        longitude_raw = self._read_int32_le()
         status_speed = self._read_uint16_le()
         sat_angle = self._read_uint16_le()
         
