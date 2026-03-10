@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naturelink GPS Tracker Dashboard</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🚗 Naturelink GPS Tracker Dashboard</h1>
+            <div class="connection-status">
+                <span class="status-indicator" id="statusIndicator"></span>
+                <span id="statusText">Connecting...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Map Section -->
+            <div class="map-section">
+                <div id="map"></div>
+            </div>
+
+            <!-- Info Panel -->
+            <div class="info-panel">
+                <!-- Device Info -->
+                <div class="info-card">
+                    <h3>📱 Device Info</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">IMEI:</span>
+                            <span class="value" id="imei">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Frame ID:</span>
+                            <span class="value" id="frameId">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Event:</span>
+                            <span class="value" id="event">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Last Update:</span>
+                            <span class="value" id="lastUpdate">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GPS Location -->
+                <div class="info-card">
+                    <h3>📍 GPS Location</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Latitude:</span>
+                            <span class="value" id="latitude">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Longitude:</span>
+                            <span class="value" id="longitude">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Speed:</span>
+                            <span class="value" id="speed">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Heading:</span>
+                            <span class="value" id="heading">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Altitude:</span>
+                            <span class="value" id="altitude">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Satellites:</span>
+                            <span class="value" id="satellites">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">GPS Valid:</span>
+                            <span class="value" id="gpsValid">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Signal Quality:</span>
+                            <span class="value" id="signalQuality">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Status -->
+                <div class="info-card">
+                    <h3>🔋 Device Status</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Battery:</span>
+                            <span class="value" id="battery">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">External Power:</span>
+                            <span class="value" id="externalPower">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Network:</span>
+                            <span class="value" id="network">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Mileage:</span>
+                            <span class="value" id="mileage">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Engine Time:</span>
+                            <span class="value" id="engineTime">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input/Output Status -->
+                <div class="info-card">
+                    <h3>🔌 Input/Output Status</h3>
+                    <div class="io-grid">
+                        <div class="io-section">
+                            <h4>Digital Inputs</h4>
+                            <div class="io-indicators">
+                                <div class="io-item">
+                                    <span class="io-label">DIN1:</span>
+                                    <span class="io-status" id="din1">OFF</span>
+                                </div>
+                                <div class="io-item">
+                                    <span class="io-label">DIN2:</span>
+                                    <span class="io-status" id="din2">OFF</span>
+                                </div>
+                                <div class="io-item">
+                                    <span class="io-label">DIN3:</span>
+                                    <span class="io-status" id="din3">OFF</span>
+                                </div>
+                                <div class="io-item">
+                                    <span class="io-label">DIN4:</span>
+                                    <span class="io-status" id="din4">OFF</span>
+                                </div>
+                                <div class="io-item">
+                                    <span class="io-label">DIN5:</span>
+                                    <span class="io-status" id="din5">OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="io-section">
+                            <h4>Digital Outputs</h4>
+                            <div class="io-indicators">
+                                <div class="io-item">
+                                    <span class="io-label">DOUT1:</span>
+                                    <span class="io-status" id="dout1">OFF</span>
+                                </div>
+                                <div class="io-item">
+                                    <span class="io-label">DOUT2:</span>
+                                    <span class="io-status" id="dout2">OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acceleration -->
+                <div class="info-card">
+                    <h3>📊 Acceleration</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">X-Axis:</span>
+                            <span class="value" id="accelX">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Y-Axis:</span>
+                            <span class="value" id="accelY">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Z-Axis:</span>
+                            <span class="value" id="accelZ">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- iButton/RFID -->
+                <div class="info-card" id="ibuttonCard" style="display: none;">
+                    <h3>🔑 iButton/RFID</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">ID:</span>
+                            <span class="value" id="ibuttonId">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Authorized:</span>
+                            <span class="value" id="ibuttonAuth">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Base Station -->
+                <div class="info-card">
+                    <h3>📡 Base Station</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">MCC:</span>
+                            <span class="value" id="mcc">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">MNC:</span>
+                            <span class="value" id="mnc">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">LAC:</span>
+                            <span class="value" id="lac">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Cell ID:</span>
+                            <span class="value" id="cellId">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Paho MQTT JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
