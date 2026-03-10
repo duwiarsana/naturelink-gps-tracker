@@ -52,8 +52,9 @@ function connectMQTT() {
         onSuccess: onConnect,
         onFailure: onFailure,
         useSSL: false,
-        reconnect: true,
-        timeout: 10
+        timeout: 10,
+        keepAliveInterval: 60,
+        cleanSession: true
     };
     
     try {
