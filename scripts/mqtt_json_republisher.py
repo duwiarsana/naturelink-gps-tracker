@@ -27,11 +27,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
+LOG_FILE = os.path.join(PROJECT_DIR, 'data', 'json_republisher.log')
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('../data/json_republisher.log'),
+        logging.FileHandler(LOG_FILE),
         logging.StreamHandler()
     ]
 )
